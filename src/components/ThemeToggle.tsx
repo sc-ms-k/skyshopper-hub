@@ -8,16 +8,19 @@ export function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <Toggle 
-      aria-label="Toggle theme" 
-      className="p-2 rounded-full hover:bg-sky-100 dark:hover:bg-sky-900 transition-colors"
-      onPressedChange={toggleTheme}
+    <Button 
+      variant="ghost" 
+      size="icon" 
+      onClick={toggleTheme}
+      className="rounded-full w-10 h-10 bg-background/50 backdrop-blur-sm hover:bg-sky-100 dark:hover:bg-sky-900 transition-all duration-300"
+      aria-label="Toggle theme"
     >
       {theme === "light" ? (
-        <Moon className="h-[1.2rem] w-[1.2rem] text-foreground/70" />
+        <Moon className="h-[1.2rem] w-[1.2rem] rotate-90 transition-all duration-500 dark:rotate-0" />
       ) : (
-        <Sun className="h-[1.2rem] w-[1.2rem] text-foreground/70" />
+        <Sun className="h-[1.2rem] w-[1.2rem] rotate-90 transition-all duration-500 dark:rotate-0" />
       )}
-    </Toggle>
+      <span className="sr-only">Toggle theme</span>
+    </Button>
   );
 }

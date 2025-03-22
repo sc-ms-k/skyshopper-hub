@@ -8,6 +8,7 @@ import { useState, useEffect } from "react";
 import { ThemeProvider } from "./components/ThemeProvider";
 import DroneLoading from "./components/DroneLoading";
 import AIChatbot from "./components/AIChatbot";
+import CloudsBackground from "./components/CloudsBackground";
 import Index from "./pages/Index";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
@@ -35,23 +36,34 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <DroneLoading isLoading={loading} />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/products/:id" element={<ProductDetail />} />
-              <Route path="/tracking" element={<Tracking />} />
-              <Route path="/favorites" element={<Favorites />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-            <AIChatbot />
-          </BrowserRouter>
+          <div className="relative min-h-screen">
+            {/* Global clouds background */}
+            <div className="fixed inset-0 z-[-1] pointer-events-none">
+              <CloudsBackground 
+                variant="default" 
+                density="medium" 
+                speed={loading ? "fast" : "slow"} 
+              />
+            </div>
+            
+            <Toaster />
+            <Sonner />
+            <DroneLoading isLoading={loading} />
+            <BrowserRouter>
+              <Routes>
+                <Route path="/" element={<Index />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/products/:id" element={<ProductDetail />} />
+                <Route path="/tracking" element={<Tracking />} />
+                <Route path="/favorites" element={<Favorites />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+              <AIChatbot />
+            </BrowserRouter>
+          </div>
         </TooltipProvider>
       </ThemeProvider>
     </QueryClientProvider>

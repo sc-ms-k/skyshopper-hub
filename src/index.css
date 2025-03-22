@@ -93,7 +93,14 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-sky-200/70 hover:bg-sky-300/70 rounded-full transition-colors;
+    @apply bg-sky-200/70 dark:bg-sky-700/70 hover:bg-sky-300/70 dark:hover:bg-sky-600/70 rounded-full transition-colors;
+  }
+  
+  /* Apply transition to all elements when theme changes */
+  [data-theme-transition="true"] * {
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 300ms;
   }
 }
 
@@ -170,4 +177,47 @@
   background: rgba(var(--background), 0.8);
   backdrop-filter: blur(5px);
   z-index: 100;
+}
+
+/* New animations for product cards */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-150%) translateY(-150%) rotate(0deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(150%) translateY(150%) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+@keyframes falling-leaf {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(1000%) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes hovering {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Enhanced transitions for theme toggling */
+.theme-transition {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }

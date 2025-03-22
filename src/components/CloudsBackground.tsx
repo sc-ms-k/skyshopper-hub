@@ -1,16 +1,30 @@
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useTheme } from './ThemeProvider';
 
 type CloudsBackgroundProps = {
   variant?: 'light' | 'default';
   density?: 'low' | 'medium' | 'high';
+  speed?: 'slow' | 'normal' | 'fast';
 };
 
 const CloudsBackground = ({
   variant = 'default',
-  density = 'medium'
+  density = 'medium',
+  speed = 'normal'
 }: CloudsBackgroundProps) => {
   const cloudContainerRef = useRef<HTMLDivElement>(null);
+  const { theme } = useTheme();
+  const [isLoading, setIsLoading] = useState(true);
+  
+  // Set loading state to false after initial render
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    
+    return () => clearTimeout(timer);
+  }, []);
   
   // Determine number of clouds based on density
   const getCloudCount = () => {
@@ -24,7 +38,19 @@ const CloudsBackground = ({
   
   // Get cloud variant class
   const getCloudColorClass = () => {
-    return variant === 'light' ? 'text-cloud-light' : 'text-cloud';
+    if (variant === 'light') {
+      return theme === 'dark' ? 'text-slate-800/30' : 'text-cloud-light';
+    }
+    return theme === 'dark' ? 'text-slate-800/40' : 'text-cloud';
+  };
+
+  // Get animation duration based on speed
+  const getAnimationDuration = (baseDuration: number) => {
+    switch (speed) {
+      case 'slow': return baseDuration * 1.5;
+      case 'fast': return baseDuration * 0.5;
+      default: return baseDuration;
+    }
   };
   
   // Create random number within range
@@ -33,13 +59,15 @@ const CloudsBackground = ({
   };
   
   // Generate clouds
-  const clouds = Array.from({ length: getCloudCount() }).map((_, index) => {
+  const cloudCount = getCloudCount();
+  const clouds = Array.from({ length: cloudCount }).map((_, index) => {
     const size = random(40, 120);
     const top = random(5, 80);
     const left = random(-20, 100);
     const opacity = random(30, 80) / 100;
     const delay = random(0, 15);
-    const duration = random(25, 45);
+    const baseDuration = random(25, 45);
+    const duration = getAnimationDuration(baseDuration);
     const zIndex = random(-10, -5);
     
     return {
@@ -62,7 +90,7 @@ const CloudsBackground = ({
       {clouds.map((cloud) => (
         <div
           key={cloud.id}
-          className={`absolute ${getCloudColorClass()} opacity-${Math.floor(cloud.style.opacity * 100)} animate-cloud-drift-1 pointer-events-none`}
+          className={`absolute ${getCloudColorClass()} opacity-${Math.floor(cloud.style.opacity * 100)} ${isLoading ? 'animate-cloud-drift-2' : 'animate-cloud-drift-1'} pointer-events-none`}
           style={{
             width: cloud.style.width,
             height: cloud.style.height,

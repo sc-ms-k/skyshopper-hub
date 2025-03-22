@@ -146,6 +146,18 @@ export default {
 					'0%, 100%': { transform: 'translateY(0) rotate(0)' },
 					'25%': { transform: 'translateY(-15px) rotate(-5deg)' },
 					'75%': { transform: 'translateY(5px) rotate(5deg)' },
+				},
+				'falling-particle': {
+					'0%': { transform: 'translateY(0)', opacity: '1' },
+					'100%': { transform: 'translateY(40px)', opacity: '0' },
+				},
+				'leaf-fall': {
+					'0%': { transform: 'translateY(0) rotate(0deg)', opacity: '1' },
+					'100%': { transform: 'translateY(100px) rotate(90deg)', opacity: '0' },
+				},
+				'shimmer-effect': {
+					'0%': { transform: 'translateX(-100%)' },
+					'100%': { transform: 'translateX(100%)' },
 				}
 			},
 			animation: {
@@ -162,7 +174,10 @@ export default {
 				'pulse-light': 'pulse-light 2s infinite',
 				'shimmer': 'shimmer 2s infinite linear',
 				'spin-slow': 'spin-slow 8s linear infinite',
-				'drone-fly': 'drone-fly 4s ease-in-out infinite'
+				'drone-fly': 'drone-fly 4s ease-in-out infinite',
+				'falling-particle': 'falling-particle 2s linear infinite',
+				'leaf-fall': 'leaf-fall 4s ease-in-out infinite',
+				'shimmer-effect': 'shimmer-effect 2s infinite'
 			},
 			backdropBlur: {
 				xs: '2px',
