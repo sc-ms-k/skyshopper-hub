@@ -1,0 +1,89 @@
+
+import { useEffect, useRef } from 'react';
+
+type CloudsBackgroundProps = {
+  variant?: 'light' | 'default';
+  density?: 'low' | 'medium' | 'high';
+};
+
+const CloudsBackground = ({
+  variant = 'default',
+  density = 'medium'
+}: CloudsBackgroundProps) => {
+  const cloudContainerRef = useRef<HTMLDivElement>(null);
+  
+  // Determine number of clouds based on density
+  const getCloudCount = () => {
+    switch (density) {
+      case 'low': return 4;
+      case 'medium': return 8;
+      case 'high': return 12;
+      default: return 8;
+    }
+  };
+  
+  // Get cloud variant class
+  const getCloudColorClass = () => {
+    return variant === 'light' ? 'text-cloud-light' : 'text-cloud';
+  };
+  
+  // Create random number within range
+  const random = (min: number, max: number) => {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  };
+  
+  // Generate clouds
+  const clouds = Array.from({ length: getCloudCount() }).map((_, index) => {
+    const size = random(40, 120);
+    const top = random(5, 80);
+    const left = random(-20, 100);
+    const opacity = random(30, 80) / 100;
+    const delay = random(0, 15);
+    const duration = random(25, 45);
+    const zIndex = random(-10, -5);
+    
+    return {
+      id: index,
+      style: {
+        width: `${size}px`,
+        height: `${Math.floor(size * 0.6)}px`,
+        top: `${top}%`,
+        left: `${left}%`,
+        opacity,
+        zIndex,
+        animationDelay: `${delay}s`,
+        animationDuration: `${duration}s`,
+      }
+    };
+  });
+
+  return (
+    <div ref={cloudContainerRef} className="cloud-background">
+      {clouds.map((cloud) => (
+        <div
+          key={cloud.id}
+          className={`absolute ${getCloudColorClass()} opacity-${Math.floor(cloud.style.opacity * 100)} animate-cloud-drift-1 pointer-events-none`}
+          style={{
+            width: cloud.style.width,
+            height: cloud.style.height,
+            top: cloud.style.top,
+            left: cloud.style.left,
+            zIndex: cloud.style.zIndex,
+            animationDelay: cloud.style.animationDelay,
+            animationDuration: cloud.style.animationDuration,
+          }}
+        >
+          <svg 
+            viewBox="0 0 200 120" 
+            fill="currentColor"
+            className="w-full h-full"
+          >
+            <path d="M0 100 C30 130, 75 130, 100 100 S140 80, 200 100 V0 H0 Z" />
+          </svg>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default CloudsBackground;
