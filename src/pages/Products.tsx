@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from 'react';
-import { Slider, Filter, CheckCheck, Package } from 'lucide-react';
+import { Sliders, Filter, CheckCheck, Package } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import ProductCard, { Product } from '@/components/ProductCard';
