@@ -1,8 +1,9 @@
 
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Bell, Package, Heart, PlaneTakeoff, Search } from 'lucide-react';
+import { Bell, Package, Heart, PlaneTakeoff, Search, MessageSquare } from 'lucide-react';
 import NotificationBell from './NotificationBell';
+import { ThemeToggle } from './ThemeToggle';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -60,15 +61,24 @@ const Header = () => {
           </nav>
           
           <div className="flex items-center space-x-4">
-            <button className="p-2 rounded-full hover:bg-sky-100 transition-colors">
+            <button className="p-2 rounded-full hover:bg-sky-100 dark:hover:bg-sky-900 transition-colors">
               <Search className="h-5 w-5 text-foreground/70" />
             </button>
             
             <NotificationBell />
             
-            <Link to="/favorites" className="p-2 rounded-full hover:bg-sky-100 transition-colors">
+            <Link to="/favorites" className="p-2 rounded-full hover:bg-sky-100 dark:hover:bg-sky-900 transition-colors">
               <Heart className="h-5 w-5 text-foreground/70" />
             </Link>
+            
+            <ThemeToggle />
+            
+            <button 
+              className="p-2 rounded-full hover:bg-sky-100 dark:hover:bg-sky-900 transition-colors"
+              aria-label="Chat with AI Assistant"
+            >
+              <MessageSquare className="h-5 w-5 text-foreground/70" />
+            </button>
             
             <button className="hidden md:flex items-center space-x-2 bg-primary text-white px-4 py-2 rounded-full hover:bg-primary/90 transition-colors">
               <Package className="h-4 w-4" />

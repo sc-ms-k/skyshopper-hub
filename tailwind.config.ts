@@ -141,6 +141,11 @@ export default {
 				'spin-slow': {
 					'0%': { transform: 'rotate(0deg)' },
 					'100%': { transform: 'rotate(360deg)' }
+				},
+				'drone-fly': {
+					'0%, 100%': { transform: 'translateY(0) rotate(0)' },
+					'25%': { transform: 'translateY(-15px) rotate(-5deg)' },
+					'75%': { transform: 'translateY(5px) rotate(5deg)' },
 				}
 			},
 			animation: {
@@ -151,12 +156,13 @@ export default {
 				'float-slow': 'float-slow 6s ease-in-out infinite',
 				'cloud-drift-1': 'cloud-drift-1 25s linear infinite',
 				'cloud-drift-2': 'cloud-drift-2 35s linear infinite',
-				'fade-in': 'fade-in 0.5s ease-out',
-				'fade-out': 'fade-out 0.5s ease-out',
+				'fade-in': 'fade-in 0.5s ease-out forwards',
+				'fade-out': 'fade-out 0.5s ease-out forwards',
 				'scale-in': 'scale-in 0.3s ease-out',
 				'pulse-light': 'pulse-light 2s infinite',
 				'shimmer': 'shimmer 2s infinite linear',
-				'spin-slow': 'spin-slow 8s linear infinite'
+				'spin-slow': 'spin-slow 8s linear infinite',
+				'drone-fly': 'drone-fly 4s ease-in-out infinite'
 			},
 			backdropBlur: {
 				xs: '2px',
